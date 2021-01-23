@@ -1,0 +1,29 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: rasul-k8s
+  region: eu-north-1
+
+nodeGroups:
+   - name: ng1
+     desiredCapacity: 1
+     instanceType: t3.micro
+     ssh:
+        publicKeyName: rasul-key-stolckholm
+   - name: ng2
+     desiredCapacity: 2
+     instanceType: t3.micro
+     ssh:
+        publicKeyName: rasul-key-stolckholm
+   - name: ng-mixed
+     minSize: 2
+     maxSize: 5
+     instancesDistribution:
+       maxPrice: 0.017
+       instanceTypes: ["t3.micro"] # At least one instance type should be specified
+       onDemandBaseCapacity: 0
+       onDemandPercentageAboveBaseCapacity: 50
+       spotInstancePools: 2     
+     ssh:
+         publicKeyName: rasul-key-stolckholm
